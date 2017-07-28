@@ -1,0 +1,42 @@
+group 'cn.bingoogolapple'
+version '1.0'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'cn.bingoogolapple.tuning.Producer'
+    }
+}
+
+// gradle build
+// java -jar -Xms2g -Xmx2g -Xss256k -XX:+UseSerialGC -Xloggc:./log/SerialGC.log -XX:+PrintGC -XX:+PrintGCTimeStamps -XX:+PrintGCDateStamps -XX:+PrintGCDetails build/libs/tuning-1.0.jar
+// java -jar -Xms2g -Xmx2g -Xss256k -XX:+UseParallelGC -XX:+UseParallelOldGC -Xloggc:./log/Parallel.log -XX:+PrintGC -XX:+PrintGCTimeStamps -XX:+PrintGCDateStamps -XX:+PrintGCDetails build/libs/tuning-1.0.jar
+// java -jar -Xms2g -Xmx2g -Xss256k -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -Xloggc:./log/CMS.log -XX:+PrintGC -XX:+PrintGCTimeStamps -XX:+PrintGCDateStamps -XX:+PrintGCDetails build/libs/tuning-1.0.jar
+// java -jar -Xms2g -Xmx2g -Xss256k -XX:+UseG1GC -Xloggc:./log/G1.log -XX:+PrintGC -XX:+PrintGCTimeStamps -XX:+PrintGCDateStamps -XX:+PrintGCDetails build/libs/tuning-1.0.jar
+
+
+//jar {
+//    manifest {
+//        attributes 'Main-Class': 'cn.bingoogolapple.tuning.ManualDemo'
+//    }
+//}
+
+// gradle build
+// java -jar -Xms60m -Xmx60m -XX:NewRatio=2 -XX:SurvivorRatio=8 -Xss256k -XX:+UseParallelGC -XX:+UseParallelOldGC -XX:+PrintGC -XX:+PrintGCDetails build/libs/tuning-1.0.jar
+
+/*
+日志中显示堆中新生代的内存空间为 18432K ( 约 18M )，eden 的内存空间为 16384K ( 约 16M)，from / to survivor 的内存空间为 2048K ( 约 2M)
+新生代总空间 = eden + from + to = 16 + 2 + 2 = 20M
+
+日志中显示新生代的总空间只有 18M，因为 JVM 每次只是用新生代中的 eden 和一个 survivor，因此新生代实际的可用内存空间大小为所指定的 90%
+新生代的内存空间指的是新生代可用的总的内存空间，而不是指整个新生代的空间大小
+
+当 Full GC 进行的时候，默认的方式是尽量清空新生代，因此在调 System.gc() 时，新生代中存活的对象会提前进入老年代
+ */
