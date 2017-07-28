@@ -1,0 +1,18 @@
+apply plugin: 'java'
+
+group 'cn.bingoogolapple'
+version tuningVersion
+
+sourceCompatibility = 1.8
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'cn.bingoogolapple.tuning.Producer'
+    }
+}
+
+// gradle producer:build
+// java -jar -Xms2g -Xmx2g -Xss256k -XX:+UseSerialGC -Xloggc:./log/SerialGC.log -XX:+PrintGC -XX:+PrintGCTimeStamps -XX:+PrintGCDateStamps -XX:+PrintGCDetails producer/build/libs/producer-1.0.jar
+// java -jar -Xms2g -Xmx2g -Xss256k -XX:+UseParallelGC -XX:+UseParallelOldGC -Xloggc:./log/Parallel.log -XX:+PrintGC -XX:+PrintGCTimeStamps -XX:+PrintGCDateStamps -XX:+PrintGCDetails producer/build/libs/producer-1.0.jar
+// java -jar -Xms2g -Xmx2g -Xss256k -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -Xloggc:./log/CMS.log -XX:+PrintGC -XX:+PrintGCTimeStamps -XX:+PrintGCDateStamps -XX:+PrintGCDetails producer/build/libs/producer-1.0.jar
+// java -jar -Xms2g -Xmx2g -Xss256k -XX:+UseG1GC -Xloggc:./log/G1.log -XX:+PrintGC -XX:+PrintGCTimeStamps -XX:+PrintGCDateStamps -XX:+PrintGCDetails producer/build/libs/producer-1.0.jar

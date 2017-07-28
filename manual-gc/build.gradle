@@ -1,0 +1,15 @@
+apply plugin: 'java'
+
+group 'cn.bingoogolapple'
+version tuningVersion
+
+sourceCompatibility = 1.8
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'cn.bingoogolapple.tuning.ManualGCDemo'
+    }
+}
+
+// gradle manual-gc:build
+// java -jar -Xms60m -Xmx60m -XX:NewRatio=2 -XX:SurvivorRatio=8 -Xss256k -XX:+UseParallelGC -XX:+UseParallelOldGC -XX:+PrintGC -XX:+PrintGCTimeStamps -XX:+PrintGCDateStamps -XX:+PrintGCDetails manual-gc/build/libs/manual-gc-1.0.jar
